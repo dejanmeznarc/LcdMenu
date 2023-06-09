@@ -862,9 +862,8 @@ public:
         return currentMenuTable[position];
     }
 
-#ifndef USE_STANDARD_LCD
 #ifdef ItemToggle_H
-
+#ifndef USE_STANDARD_LCD
     /**
      * Toggle backlight
      */
@@ -874,6 +873,6 @@ public:
             lcd->setBacklight(item->isOn() ? 1 : NULL);
         }
     }
+#endif // USE_STANDARD_LCD
 #endif // ItemToggle_H
-#endif //USE_USE_STANDARD_LCD
 };
