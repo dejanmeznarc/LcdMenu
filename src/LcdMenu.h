@@ -25,8 +25,6 @@
 */
 #pragma once
 
-#define USE_STANDARD_LCD
-
 #ifndef USE_STANDARD_LCD
 #include <LiquidCrystal_I2C.h>
 #else
@@ -864,7 +862,9 @@ public:
         return currentMenuTable[position];
     }
 
+#ifndef USE_STANDARD_LCD
 #ifdef ItemToggle_H
+
     /**
      * Toggle backlight
      */
@@ -874,5 +874,6 @@ public:
             lcd->setBacklight(item->isOn() ? 1 : NULL);
         }
     }
-#endif
+#endif // ItemToggle_H
+#endif //USE_USE_STANDARD_LCD
 };
