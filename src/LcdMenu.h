@@ -377,11 +377,11 @@ class LcdMenu {
 #endif // USE_STANDARD_LCD
             , MenuItem **menu) {
 
-        lcd->createChar(0, upArrow);
-        lcd->createChar(1, downArrow);
-
         this->lcd = pLcd;
         this->currentMenuTable = menu;
+
+        lcd->createChar(0, upArrow);
+        lcd->createChar(1, downArrow);
 
         update();
     }
