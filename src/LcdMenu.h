@@ -25,6 +25,8 @@
 */
 #pragma once
 
+#define USE_STANDARD_LCD
+
 #ifndef USE_STANDARD_LCD
 #include <LiquidCrystal_I2C.h>
 #else
