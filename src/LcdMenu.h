@@ -335,6 +335,8 @@ class LcdMenu {
      * ## Public Methods
      */
 
+#define USE_LCD_POINTER
+
     /**
      * Call this function in `setup()` to initialize the LCD and the custom
      * characters used as up and down arrows
@@ -343,16 +345,27 @@ class LcdMenu {
      */
     void setupLcdWithMenu(
 #ifndef USE_STANDARD_LCD
-        uint8_t lcd_Addr, MenuItem** menu) {
+#ifdef USE_LCD_POINTER
+            LiquidCrystal_I2C * lcdPointer, MenuItem** menu) {
+        lcd = lcdPointer;
+#else
+                     uint8_t lcd_Addr, MenuItem** menu) {
         lcd = new LiquidCrystal_I2C(lcd_Addr, maxCols, maxRows);
+#endif // USE_LCD_POINTER
         lcd->init();
         lcd->backlight();
+#else // USE_STANDARD_LCD
+#ifdef USE_LCD_POINTER
+            LiquidCrystal * lcdPointer,
+            MenuItem** menu) {
+        this->lcd = lcdPointer;
 #else
-        uint8_t rs, uint8_t en, uint8_t d0, uint8_t d1, uint8_t d2, uint8_t d3,
+            uint8_t rs, uint8_t en, uint8_t d0, uint8_t d1, uint8_t d2, uint8_t d3,
         MenuItem* menu) {
         this->lcd = new LiquidCrystal(rs, en, d0, d1, d2, d3);
         this->lcd->begin(maxCols, maxRows);
-#endif
+#endif // USE_LCD_POINTER
+#endif // USE_STANDARD_LCD
         lcd->clear();
         lcd->createChar(0, upArrow);
         lcd->createChar(1, downArrow);
