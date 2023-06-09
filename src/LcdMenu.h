@@ -359,6 +359,36 @@ class LcdMenu {
         this->currentMenuTable = menu;
         update();
     }
+
+
+
+    /**
+     * Call this function in `setup()` to initialize the custom characters used
+     * as up and down arrows and tell library what LCD to use.
+     *
+     * @param pLcd address of LiquidCrystal_I2C or LiquidCrystal object
+     * @param menu menu to display
+     */
+    void setup(
+#ifdef USE_STANDARD_LCD
+            LiquidCrystal *pLcd
+#else
+            LiquidCrystal_I2C *pLcd
+#endif // USE_STANDARD_LCD
+            , MenuItem **menu) {
+
+        lcd->createChar(0, upArrow);
+        lcd->createChar(1, downArrow);
+
+        this->lcd = pLcd;
+        this->currentMenuTable = menu;
+
+        update();
+    }
+
+
+
+
     /*
      * Draw the menu items and cursor
      */
